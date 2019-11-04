@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>主页</title>
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+<div class="layui-layout layui-layout-admin">
+
+
+    <div class="layui-header header header-demo" autumn>
+        <div class="layui-main layui-bg-green">
+            <div class="layui-form component" lay-filter="LAY-site-header-component"></div>
+
+            <div class="layui-logo" style="font-size: 20px">快印中心排队系统</div>
+            <ul class="layui-nav layui-layout-right">
+
+                <li class="layui-nav-item" lay-unselect="" lay-filter="me">
+                    <a href="javascript:;"><img src="../static/头像.jpg" class="layui-nav-img" id="userName">20170217077黎伟航</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">修改信息</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="">退了</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+
+            <ul class="layui-nav layui-nav-tree site-demo-nav">
+
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a class="javascript:;" href="homePage.html">当前队列</a>
+                    <dl class="layui-nav-item">
+                    </dl>
+                </li>
+                <li class="layui-nav-item layui-nav-itemed" lay-filter="yuyue">
+                    <a class="javascript:;" href="./addPrintPage.html">预约打印</a>
+                    <dl class="layui-nav-item">
+                    </dl>
+                </li>
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a class="javascript:;" href="historyPage.html">历史信息</a>
+                    <dl class="layui-nav-item">
+                    </dl>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body">
+        <div class="layui-main mainBox">
+            <form class="layui-form" action="/printerProject/addPrint">
+                <div>&nbsp;</div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">纸张大小</label>
+                    <div class="layui-input-inline">
+                        <select name="paperSize" lay-verify="required">
+                            <option value=""></option>
+                            <option value="A4">A4</option>
+                            <option value="A8">A8</option>
+                            <option value="16开">16开</option>
+                            <option value="明信片">明信片</option>
+                            <option value="奖状">奖状</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">打印方式</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="way" value="单面打印" title="单面打印" checked>
+                        <input type="radio" name="way" value="双面打印" title="双面打印">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">打印选项</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="option" value="黑白" title="黑白" checked>
+                        <input type="radio" name="option" value="彩印" title="彩印">
+                    </div>
+                </div>
+
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">选择文件</label>
+                    <!--                    <button type="button" class="layui-btn" id="test3" style="background: #01AAED">-->
+                    <!--                        <i class="layui-icon">&#xe67c;</i>上传文件-->
+                    <!--                    </button>-->
+                    <div class="layui-input-inline">
+                        <input type="text" name="fileName" required lay-verify="required" placeholder="文件名"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+
+                <div class="layui-form-item layui-form-text">
+                    <label class="layui-form-label">备注信息</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="notes" required lay-verify="required" placeholder="请输入备注内容"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit lay-filter="formDemo">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;提交&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    <div class="layui-footer">
+        © 2019 lwh.kim - 打印店排队系统
+    </div>
+
+
+    <script src="../layui/layui.js" charset="utf-8"></script>
+
+    <script>
+
+
+        layui.use(['element', 'layer', 'form', 'upload'], function () {
+            var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+            var layer = layui.layer;
+            var form = layui.form;
+            var upload = layui.upload;
+
+            var $ = layui.jquery;
+
+            var uploadInst = upload.render({
+                elem: '#test3'
+                , url: '/printerProject/fileUpload'
+                , accept: 'file' //普通文件
+                , done: function (res) {
+                    console.log(res)
+                }
+            });
+
+
+            //监听导航点击
+            element.on('nav(demo)', function (elem) {
+                console.log(elem)
+            });
+
+            element.on('nav(yuyue)', function (data) {
+                layer.open({
+                    type: 1,
+                    content: $('#addPrint'),
+                    title: '添加信息',
+                    area: '370px',
+                });
+            });
+
+        });
+    </script>
+
+</body>
+</html>

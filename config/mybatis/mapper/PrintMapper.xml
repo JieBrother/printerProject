@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.lwh.printer.dao.PrintMapper">
+
+
+    <select id="getPrintLine" resultType="PrintInformation">
+        select * from printinformation where status like '%中'
+    </select>
+
+    <update id="updateStatus" parameterType="String">
+        update printinformation set status = '已完成' where fileName = #{fileName}
+    </update>
+
+    <insert id="addPrint" parameterType="PrintInformation">
+        insert into printinformation() values (#{id}, #{name}, #{fileName}, #{paperSize}, #{way}, #{option}, #{notes}, #{status})
+    </insert>
+
+    <select id="historyList" resultType="PrintInformation" parameterType="String">
+        select * from printinformation where status like '已完成'
+    </select>
+
+    <select id="userHistoryList" resultType="PrintInformation" parameterType="String">
+        select * from printinformation where id = #{id} and status = '已完成'
+    </select>
+
+    <delete id="delHistoryData" parameterType="String">
+        delete  from printinformation where fileName = #{fileName}
+    </delete>
+
+</mapper>

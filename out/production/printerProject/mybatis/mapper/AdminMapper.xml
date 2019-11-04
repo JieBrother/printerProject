@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.lwh.printer.dao.AdminMapper">
+
+    <select id="testDao" resultType="User">
+        select * from admin
+    </select>
+
+    <select id="login" resultMap="myAdmin" parameterType="User">
+        select * from admin where admin_id = #{id}
+    </select>
+
+    <insert id="register" parameterType="User">
+        insert into admin values (#{id}, #{name}, #{password})
+    </insert>
+
+    <resultMap id="myAdmin" type="User">
+        <id column="admin_id" property="id"/>
+        <result column="admin_name" property="name"/>
+        <result column="admin_password" property="password"/>
+    </resultMap>
+
+</mapper>

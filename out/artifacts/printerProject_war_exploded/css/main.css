@@ -1,0 +1,7 @@
+.mainBox {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	/*width: 80%;*/
+	height: 500px;
+}
