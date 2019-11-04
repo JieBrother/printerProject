@@ -6,6 +6,7 @@
         select * from user
     </select>
 
+
     <select id="login" resultMap="myUser" parameterType="User">
         select * from user where user_id = #{id}
     </select>
